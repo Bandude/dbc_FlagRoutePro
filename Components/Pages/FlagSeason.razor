@@ -1,0 +1,118 @@
+﻿@page "/flagseason"
+@using dbc_FlagRoutePro.Entities;
+@using dbc_FlagRoutePro.Interfaces
+
+@inject IFlagSeason FlagSeasonService
+
+<PageTitle>FlagSeasons</PageTitle>
+<h1>Flag Seasons</h1>
+<p>This page demonstrates CRUD operations on FlagSeason entities.</p>
+@if (flagSeasons == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Subscription Type</th>
+                <th>Starting Date</th>
+                <th>Ending Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (FlagSeason flagSeason in flagSeasons)
+            {
+                <tr>
+                    <td>@flagSeason.Id</td>
+                    <td>@flagSeason.Name</td>
+                    <td>@flagSeason.SubscriptionTypeId</td>
+                    <td>@flagSeason.StartingDate.ToShortDateString()</td>
+                    <td>@flagSeason.EndingDate.ToShortDateString()</td>
+                    <td>
+                        <button @onclick="() => EditFlagSeason(flagSeason)">Edit</button>
+                        <button @onclick="() => DeleteFlagSeason(flagSeason.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<!-- Add/Edit Form -->
+<div>
+    <h2>@(IsEditMode ? "Edit FlagSeason" : "Add FlagSeason")</h2>
+    <EditForm Model="flagSeasonModel" OnValidSubmit="SaveFlagSeason">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="name">Name</label>
+            <InputText id="name" class="form-control" @bind-Value="flagSeasonModel.Name" />
+        </div>
+        <div class="form-group">
+            <label for="subscriptionTypeId">Subscription Type Id</label>
+            <InputNumber id="subscriptionTypeId" class="form-control" @bind-Value="flagSeasonModel.SubscriptionTypeId" />
+        </div>
+        <div class="form-group">
+            <label for="startingDate">Starting Date</label>
+            <InputDate id="startingDate" class="form-control" @bind-Value="flagSeasonModel.StartingDate" />
+        </div>
+        <div class="form-group">
+            <label for="endingDate">Ending Date</label>
+            <InputDate id="endingDate" class="form-control" @bind-Value="flagSeasonModel.EndingDate" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+    </EditForm>
+</div>
+@code {
+    private List<FlagSeason> flagSeasons = new List<FlagSeason>();
+    private FlagSeason flagSeasonModel = new FlagSeason();
+    private bool IsEditMode = false;
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadFlagSeasonsAsync();
+    }
+    private async Task LoadFlagSeasonsAsync()
+    {
+        flagSeasons = (await FlagSeasonService.GetAllAsync()).ToList();
+    }
+    private void EditFlagSeason(FlagSeason flagSeason)
+    {
+        flagSeasonModel = new FlagSeason
+            {
+                Id = flagSeason.Id,
+                Name = flagSeason.Name,
+                SubscriptionTypeId = flagSeason.SubscriptionTypeId,
+                StartingDate = flagSeason.StartingDate,
+                EndingDate = flagSeason.EndingDate
+            };
+        IsEditMode = true;
+    }
+    private void CancelEdit()
+    {
+        flagSeasonModel = new FlagSeason();
+        IsEditMode = false;
+    }
+    private async Task SaveFlagSeason()
+    {
+        if (IsEditMode)
+        {
+            await FlagSeasonService.UpdateAsync(flagSeasonModel);
+        }
+        else
+        {
+            await FlagSeasonService.AddAsync(flagSeasonModel);
+        }
+        await LoadFlagSeasonsAsync();
+        CancelEdit();
+    }
+    private async Task DeleteFlagSeason(int id)
+    {
+        await FlagSeasonService.DeleteAsync(id);
+        await LoadFlagSeasonsAsync();
+    }
+}

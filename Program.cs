@@ -1,16 +1,17 @@
 using dbc_FlagRoutePro.Components;
 using dbc_FlagRoutePro.Components.Account;
+using dbc_FlagRoutePro.Components.Pages;
 using dbc_FlagRoutePro.Data;
-using dbc_FlagRoutePro.Entities;
-using dbc_FlagRoutePro.Entities.Application;
-using dbc_FlagRoutePro.Entities.Interfaces;
+using dbc_FlagRoutePro.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLogging();
+builder.Services.AddScoped<IFlagSeason>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -43,7 +44,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-builder.Services.AddScoped <IFlagSeason>();
+
 
 
 var app = builder.Build();

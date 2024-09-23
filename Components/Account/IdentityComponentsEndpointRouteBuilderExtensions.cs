@@ -1,6 +1,6 @@
 using dbc_FlagRoutePro.Components.Account.Pages;
 using dbc_FlagRoutePro.Components.Account.Pages.Manage;
-using dbc_FlagRoutePro.Entities.Application;
+using dbc_FlagRoutePro.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

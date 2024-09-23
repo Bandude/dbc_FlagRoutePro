@@ -1,4 +1,9 @@
-﻿using dbc_FlagRoutePro.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using dbc_FlagRoutePro.Interfaces;
 namespace dbc_FlagRoutePro.Entities
 {
     public class FlagSeason : IFlagSeason
@@ -10,7 +15,7 @@ namespace dbc_FlagRoutePro.Entities
         public SubscriptionType SubscriptionType { get; set; }
         public int SubscriptionTypeId { get; set; }
         public DateTime StartingDate { get; set; }
-        public DateTime EndingDate { get; set; }
+        public DateTime EndingDate { get; set; } // Ensure this property exists
         public FlagSeason(ILogger<FlagSeason> logger, IEntityRepository<FlagSeason> entityRepository)
         {
             _entityRepository = entityRepository;
@@ -101,3 +106,4 @@ namespace dbc_FlagRoutePro.Entities
             _logger.LogInformation($"Ending Date: {EndingDate}");
         }
     }
+}

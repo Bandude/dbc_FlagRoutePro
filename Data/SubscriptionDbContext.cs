@@ -16,7 +16,7 @@ namespace dbc_FlagRoutePro.Data
         public DbSet<RouteStop> RouteStops { get; set; }
         public DbSet<Volunteer> Volunteers { get; set; }
 
-        public DbSet<FlagSeason> FlagSeason { get; set; }
+        public DbSet<IFlagSeason> FlagSeason { get; set; }  
         public DbSet<FlagRouteDates> FlagRouteDates { get; set; }
         public SubscriptionDbContext(DbContextOptions<SubscriptionDbContext> options)
             : base(options)
