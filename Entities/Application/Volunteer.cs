@@ -8,7 +8,6 @@ namespace dbc_FlagRoutePro.Entities
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public ICollection<Event> AssignedRoutes { get; set; } = new List<Event>();
         public string FullName => $"{FirstName} {LastName}";
         public override string ToString()
         {

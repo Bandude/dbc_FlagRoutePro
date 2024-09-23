@@ -15,6 +15,9 @@ namespace dbc_FlagRoutePro.Data
         public DbSet<FlagRoute> FlagRoutes { get; set; }
         public DbSet<RouteStop> RouteStops { get; set; }
         public DbSet<Volunteer> Volunteers { get; set; }
+
+        public DbSet<FlagSeason> FlagSeason { get; set; }
+        public DbSet<FlagRouteDates> FlagRouteDates { get; set; }
         public SubscriptionDbContext(DbContextOptions<SubscriptionDbContext> options)
             : base(options)
         {
@@ -42,14 +45,7 @@ namespace dbc_FlagRoutePro.Data
                 .HasOne(rs => rs.Subscription)
                 .WithMany()
                 .HasForeignKey(rs => rs.SubscriptionId);
-            modelBuilder.Entity<Event>()
-                .HasOne(e => e.FlagRoute)
-                .WithMany()
-                .HasForeignKey(e => e.FlagRouteId);
-            modelBuilder.Entity<Event>()
-                .HasMany(e => e.AssignedVolunteers)
-                .WithMany(v => v.AssignedRoutes)
-                .UsingEntity(j => j.ToTable("EventVolunteers"));
+            //TODO: Add all the relationships
         }
     }
 

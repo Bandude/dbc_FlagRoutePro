@@ -1,5 +1,4 @@
-﻿using dbc_FlagRoutePro.Entities.Interfaces;
-
+﻿
 namespace dbc_FlagRoutePro.Entities
 {
     public class FlagRouteSeasonDates
