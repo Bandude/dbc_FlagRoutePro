@@ -1,4 +1,6 @@
 ﻿
+using dbc_FlagRoutePro.Interfaces;
+
 namespace dbc_FlagRoutePro.Entities
 {
     public class FlagRouteSeasonDates
@@ -9,6 +11,6 @@ namespace dbc_FlagRoutePro.Entities
   
         public DateTime FlagRouteDate { get; set; } = DateTime.Now;
 
-        public IFlagSeason FlagSeason { get; set; }
+        public required FlagSeason FlagSeason { get; set; }
     }
 }

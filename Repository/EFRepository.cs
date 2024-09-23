@@ -2,10 +2,6 @@
 using dbc_FlagRoutePro.Data;
 using dbc_FlagRoutePro.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 namespace dbc_FlagRoutePro.Repositories
 {
     public class EfRepository<T> : IEntityRepository<T> where T : class

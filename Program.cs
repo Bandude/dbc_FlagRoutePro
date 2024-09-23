@@ -3,15 +3,22 @@ using dbc_FlagRoutePro.Components.Account;
 using dbc_FlagRoutePro.Components.Pages;
 using dbc_FlagRoutePro.Data;
 using dbc_FlagRoutePro.Interfaces;
+using dbc_FlagRoutePro.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using dbc_FlagRoutePro.Repositories;
+using dbc_FlagRoutePro.Entities;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLogging();
-builder.Services.AddScoped<IFlagSeason>();
+
+builder.Services.AddScoped<IFlagSeasonService, FlagSeasonService>();
+builder.Services.AddScoped<IEntityRepository<FlagSeason>, EfRepository<FlagSeason>>(); 
+
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
